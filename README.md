@@ -9,5 +9,8 @@ Some of us are good are making readable code, some of us are good at making fast
 Apart from speed, rank categories are subjective. Each participant in the challenge will select one script per category, the one considered the best in that category by the participant. 
 
 # Instructions
-Each challenge is posted as an Issue in the GitHub repository https://github.com/emilio-berti/weekly-programming-challenge/issues. 
+Each challenge is posted as an Issue in the GitHub repository https://github.com/emilio-berti/weekly-programming-challenge/issues. To participate, simply post in the reply the script.**txt** file with your code. Each challenge starts on Monday morning and ends the morning of the next Monday, *i.e.* there is one week to propose a solution to the challenge. 
+
+# Difficulty
+Each challenge has a tag describing the level of difficulty of the challenge, assigned by me according to my own judgment. Keep in mind that what I found difficult may not be difficult to you, and *vice versa*. 
 
