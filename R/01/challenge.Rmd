@@ -1,0 +1,42 @@
+---
+title: "Perform a linear model using a dataframe"
+output:
+  html_document:
+    df_print: paged
+---
+
+# Challenge
+
+We have a dataframe called *dat* on which we want to perform a linear regression. The dataframe has 5 columns: *y* is the reponse variable, and *A*, *B*, *C*, and *D* the predictors. In addition to run the regression, we want to test the collinearity of predicotrs, the model assumptions, and plot the coefficients estimate ($\pm$ standard errors). All variables are randomly drawn from a standard normal distribution, so there is no need to scale them.
+
+# Instructions
+1. copy paste the code below to create the dataframe
+2. write your solution in another chunk(s)
+3. benchmark the solution with *rbenchmark*. An example is provided below
+4. There is no package restriction
+
+## Creation of the dataframe 
+```{r create dataframe, include=TRUE}
+library(rbenchmark)
+set.seed(666) #our favourite seed
+dat <- as.data.frame(matrix(rnorm(100 * 5), ncol = 5))
+names(dat) <- c('y', LETTERS[1:4])
+```
+
+## *rbenchmark* example
+
+```{r benchmark example}
+function_to_benchmark <- function(n = 1000){
+  x <- matrix(rnorm(n^2), n, n)
+  D <- det(x)
+}
+benchmark('Determinant matrix' = {
+                          n = 1000
+                          x <- matrix(rnorm(n^2), n, n)
+                          D <- det(x)
+                          },
+          'Determinant function' = {
+                          function_to_benchmark(n = 1000)
+                          },
+          replications = 100)
+```
