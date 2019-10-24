@@ -1,0 +1,59 @@
+library(ggplot2)
+library(tibble)
+library(knitr)
+
+set.seed(666) #our favourite seed
+dat <- as.data.frame(matrix(rnorm(100 * 5), ncol = 5))
+names(dat) <- c('y', LETTERS[1:4])
+
+#starting script
+pred <- LETTERS[1:4]
+pred_dat <- dat[ , pred]
+tolerance <- rep(NA, 4)
+#get tolerances, defined as 1 - R2.
+for(x in pred){
+  X <- pred_dat[ , x]
+  Y <- pred_dat[ , setdiff(pred, x)]
+  tolerance[which(pred == x)] <- 1 - summary(lm(X ~ ., data = Y))$r.squared
+}
+#Variance inflation factor: VIF = 1 / tolerance
+VIF <- data.frame(
+  Predictor = pred,
+  vif = 1 / tolerance
+)
+
+VIF #no collinearity issues
+
+model <- lm(
+  y ~ A + B + C + D,
+  data = dat
+)
+
+p <- shapiro.test(resid(model))$p.value #normality of residuals
+if(p < 0.05){
+  print(paste0('Residuals significantly non-normally distributed, but check qqplot: p-value = ', 
+               round(p, 4)))
+  qqnorm(resid(model), pch = 20)
+  qqline(resid(model), lty = 2, col = 'tomato', lw = 3)
+} else{
+  print(paste0('Residuals normally distributed: p-value = ', 
+               round(p, 4)))
+}
+
+res <- as_tibble(summary(model)$coefficients)
+res$Variable <- rownames(summary(model)$coefficients)
+res <- res[2:5, ]
+names(res)[4] <- 'p-value'
+
+ggplot(res) +
+  geom_point(aes(Variable, Estimate)) +
+  geom_errorbar(aes(Variable, ymin = Estimate - qnorm(0.975) * `Std. Error`, 
+                    ymax = Estimate + qnorm(0.975) * `Std. Error`)) +
+  geom_abline(aes(intercept = 0, slope = 0), lty = 2) +
+  theme(
+    panel.background = element_blank(),
+    axis.line = element_line(),
+    panel.grid = element_line(colour = 'gainsboro')
+  )
+
+kable(res[ , c(5, 1, 2, 4)])
