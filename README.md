@@ -14,3 +14,8 @@ Each challenge is posted as an Issue in the GitHub repository https://github.com
 # Difficulty
 Each challenge has a tag describing the level of difficulty of the challenge, assigned by me according to my own judgment. Keep in mind that what I found difficult may not be difficult to you, and *vice versa*. 
 
+# Topics
+All topics are more than welcome and all participants are encouraged to propose a challenge. There is only one restriction to challenges: there must be at least another participant able to reply.
+
+# Why all these rules?
+To avoid chaos. If you have suggestions or complaints please contact me. Finally, remember rule 1 of this club: you *DO* talk about the weekly programming challenge club.
