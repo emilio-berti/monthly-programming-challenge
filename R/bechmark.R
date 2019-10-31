@@ -2,9 +2,9 @@ library(tidyverse)
 library(rbenchmark)
 library(wesanderson)
 
-source('../monkey_themes.R')
+source('monkey_themes.R')
 
-scripts <- list.files(pattern = '.txt')
+scripts <- list.files(path = '01', pattern = '.txt', full.names = TRUE)
 participants <- sub('[.]txt', '', scripts)
 
 bench <- list()

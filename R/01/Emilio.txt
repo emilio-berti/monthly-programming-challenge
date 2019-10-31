@@ -6,16 +6,19 @@ set.seed(666) #our favourite seed
 dat <- as.data.frame(matrix(rnorm(100 * 5), ncol = 5))
 names(dat) <- c('y', LETTERS[1:4])
 
-#starting script
+### starting script ----
+
 pred <- LETTERS[1:4]
 pred_dat <- dat[ , pred]
 tolerance <- rep(NA, 4)
+
 #get tolerances, defined as 1 - R2.
 for(x in pred){
   X <- pred_dat[ , x]
   Y <- pred_dat[ , setdiff(pred, x)]
   tolerance[which(pred == x)] <- 1 - summary(lm(X ~ ., data = Y))$r.squared
 }
+
 #Variance inflation factor: VIF = 1 / tolerance
 VIF <- data.frame(
   Predictor = pred,
@@ -46,9 +49,9 @@ res <- res[2:5, ]
 names(res)[4] <- 'p-value'
 
 ggplot(res) +
-  geom_point(aes(Variable, Estimate)) +
+  geom_point(aes(Variable, Estimate), size = 2) +
   geom_errorbar(aes(Variable, ymin = Estimate - qnorm(0.975) * `Std. Error`, 
-                    ymax = Estimate + qnorm(0.975) * `Std. Error`)) +
+                    ymax = Estimate + qnorm(0.975) * `Std. Error`), width = 0.1) +
   geom_abline(aes(intercept = 0, slope = 0), lty = 2) +
   theme(
     panel.background = element_blank(),
