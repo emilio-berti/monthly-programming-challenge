@@ -1,0 +1,22 @@
+---
+title: "Select best model using lasso vs AIC"
+output: html_document
+---
+
+# Challenge
+
+We want to understand which factors determine the quality (*quality*) of the vinho verde from white grapes. The data to investigate this is archived at https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-white.csv. A description of the dataset is available at https://archive.ics.uci.edu/ml/datasets/Wine+Quality.
+
+# Instructions
+1. write your solution in a script.**txt** file and attach it as a reply to this issue.
+2. There is no package restriction
+
+## Creation of the dataframe 
+```{r dataset summary, include=TRUE}
+d <- read.csv("winequality-white.csv", sep = ";")
+str(d)
+hist(d$quality, #we want to model this
+     col = "grey80",
+     main = "",
+     xlab = "Quality") 
+```
