@@ -1,11 +1,32 @@
+---
+title: "Lasso vs StepAIC"
+author: "Berti Emilio"
+date: "17/09/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r dummy, include=FALSE}
 library(tidyverse)
 library(magrittr) #because power is in the pipes
 library(MuMIn)
 library(glmnet)
+```
 
+```{r libs, eval=FALSE}
+library(tidyverse)
+library(magrittr) #because power is in the pipes
+library(MuMIn)
+library(glmnet)
+```
 
+```{r main}
 d <- read_delim("https://raw.githubusercontent.com/emilio-berti/monthly-programming-challenge/master/R/02/winequality-white.csv",
-                delim = ";")
+                delim = ";",
+                col_types = cols())
 
 # a bit of data exploration -------------
 d %>% 
@@ -92,3 +113,4 @@ res %>%
   ylab("Coefficient") +
   coord_flip() +
   theme_minimal()
+```
